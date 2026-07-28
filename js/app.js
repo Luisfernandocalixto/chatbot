@@ -15,7 +15,8 @@ const $info = $('small');
 let messages = [];
 
 // const SELECTED_MODEL = "Llama-3.1-8B-Instruct-q4f32_1-MLC-1k"
-const SELECTED_MODEL = "TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC";
+// const SELECTED_MODEL = "TinyLlama-1.1B-Chat-v0.4-q4f32_1-MLC";
+const SELECTED_MODEL = "Llama-3.2-1B-Instruct-q4f32_1-MLC";
 toastr.info('¡Cargando Recursos, Espere un momento por favor!');
 
 const engine = await CreateWebWorkerMLCEngine(
@@ -37,12 +38,12 @@ const engine = await CreateWebWorkerMLCEngine(
 
 $form.addEventListener('submit', async (event) => {
     event.preventDefault();
-
-
+    
+    
     if ($input.value.trim() === '') {
         return;
     }
-    
+
     const messageText = $input.value.trim();
     if (messageText != '') {
         $input.value = '';
@@ -63,6 +64,7 @@ $form.addEventListener('submit', async (event) => {
         messages,
         stream: true
     });
+    console.log('enter', chunks);
 
     let reply = "";
     const $botMessage = addMessage("", 'bot');
@@ -76,7 +78,7 @@ $form.addEventListener('submit', async (event) => {
 
     }
 
-    $button.removeAttribute('disabled')
+    $button.removeAttribute('disabled');
     messages.push({
         role: 'assistant',
         content: reply,
